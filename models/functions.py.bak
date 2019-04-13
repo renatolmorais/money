@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+def calculate_values():
+    money_list = db()(db.expenses.e_payment == 'Dinheiro').select(db.expenses.e_value)
+    money_spent = reduce(lambda x,y: x+y.e_value, money_list, 0.0)
+    debit_list = db()(db.expenses.e_payment == 'Cartão de Débito').select(db.expenses.e_value)
+    debit_spent = reduce(lambda x,y: x+y.e_value, debit_list, 0.0)
+
+    wallet_income = db(db.in_out.e_sink == 'Carteira').select(db.in_out.ALL)
+    bank_income = db(db.in_out.e_sink == 'BB').select(db.in_out.ALL)
+    savings_income = db(db.in_out.e_sink == 'Poupança BB').select(db.in_out.ALL)
+
+    wallet_outgoing = db(db.in_out.e_source == 'Carteira').select(db.in_out.ALL)
+    bank_outgoing = db(db.in_out.e_source == 'BB').select(db.in_out.ALL)
+    savings_outgoing = db(db.in_out.e_source == 'Poupança BB').select(db.in_out.ALL)
+
+    wallet_total = wallet_income - (money_spent + wallet_outgoing)
+    bank_total = bank_income - (debit_spent + bank_outgoing)
+    savings_total = savings_income - savings_outcome
+
+    # get accounts values
+    wallet_value = db()(db.accounts.account_name == 'wallet').select(db.expenses.account_value)
+    bank_value = db()(db.accounts.account_name == 'bank').select(db.expenses.account_value)
+    savings_value = db()(db.accounts.account_name == 'savings').select(db.expenses.account_value)
+
+    return {'wallet': wallet_value + wallet_total, 'account': bank_value + bank_total, 'savings': savings_value + savings_total}

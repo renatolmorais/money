@@ -1,0 +1,191 @@
+{{extend 'money_layout.html'}}
+        <div class="container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-pills">
+                            <li><a href="{{=URL('expenses')}}">Despesas gerais</a></li>
+                            <li class="active"><a href="#">Entradas e Sa&iacute;das</a></li>
+                            <li><a href="{{=URL('planning')}}">Planejamento do m&ecirc;s</a></li>
+                            <li><a href="{{=URL('credit')}}">Faturas do Car&atilde;o de Cr&eacute;dito</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    &nbsp;
+                </div>
+            </div>
+            <form method="get" action="{{=URL('inout')}}" id="myform2">
+                <!--<input type="hidden" name="change_year" id="change_year" value="True"/>-->
+                <input type="hidden" name="cur_month" id="cur_month" value="{{=cur_month}}" />
+                <select class="form-control" name="cur_year" id="cur_year" onchange="submit_form({{=cur_month}},'myform2')">
+                    {{for year in year_list:}}
+                    <option {{='selected' if year == cur_year else ''}}>{{=year}}</option>
+                    {{pass}}
+                </select>
+                <div class="container">
+                    <div class="row">
+                    &nbsp;
+                    </div>
+                </div>
+                <ul class="nav nav-pills">
+                    {{for (month,m) in [('Janeiro',1),('Fevereiro',2),('Março',3),('Abril',4),('Maio',5),('Junho',6),('Julho',7),('Agosto',8),('Setembro',9),('Outubro',10),('Novembro',11),('Dezembro',12)]:}}
+                    {{className = 'active' if m == cur_month else 'inactive'}}
+                    <li class="{{=className}}" id="li-{{=month}}" onclick="submit_form({{=m}},'myform2')"><a href="#">{{=month}}</a></li>
+                    {{pass}}
+                </ul>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="1">Data</th>
+                            <th>Descri&ccedil;&atilde;o</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Origem</th>
+                            <th>Destino</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{if success:}}
+                        {{for expense in expenses:}}
+                        <tr>
+                            <td style="display:none">{{=expense.id}}</td>
+                            <td>{{=expense.e_data}}</td>
+                            <td>{{=expense.e_description}}</td>
+                            <td>{{=expense.e_type}}</td>
+                            <td>{{=expense.e_value}}</td>
+                            <td>{{=expense.e_source}}</td>
+                            <td>{{=expense.e_sink}}</td>
+                        </tr>
+                        {{pass}}
+                        {{else:}}
+                        <tr><td colspan="5">{{=message}}}</td></tr>
+                        {{pass}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <button type="button" class="btn btn-primary" onclick="show_form('new_expense')">Novo registro...</button>
+            <div class="container">
+                <div class="row">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="container" style="display:none" id="new_expense">
+                <form class="form-inline" role="form" method="post" action="{{=URL('inout')}}">
+                    <div class="form-group">
+                        <label class="sr-only" for="e_register">Registro</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <select class="form-control" name="e_register" id="e_register">
+                            <option></option>
+                            <option>Entrada</option>
+                            <option>Sa&iacute;da</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_data">Data</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="date" class="form-control" name="e_data" id="e_data" placeholder="Data"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e-value">Valor</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="text" class="form-control" name="e_value" id="e_value" placeholder="Valor"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_description">Descri&ccedil;&atilde;o</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="text" class="form-control" name="e_description" id="e_description" placeholder="Descri&ccedil;&atilde;o"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_type">Tipo</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="text" class="form-control" name="e_type" id="e_type" placeholder="Tipo"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_source">Origem</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <select class="form-control" name="e_source" id="e_source" placeholder="Origem">
+                            <option>Carteira</option>
+                            <option>BB</option>
+                            <option>Poupan&ccedil;a BB</option>
+                            <option>Nuvem</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_sink">Destino</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <select class="form-control" name="e_sink" id="e_sink" placeholder="Destino">
+                            <option>Carteira</option>
+                            <option>BB</option>
+                            <option>Poupan&ccedil;a BB</option>
+                            <option>Pagamento</option>
+                        </select>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                        &nbsp;
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Enviar Dados</button>
+                    <button type="button" class="btn btn-primary" onclick="hide_form('new_expense')">Cancelar</button>
+                    <input type="hidden" name="is_submition" value="True" />
+                </form>
+                <!--<form method="post" action="money" id="myform">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Registro</th>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                    <th>Descri&ccedil;&atilde;o</th>
+                                    <th>Tipo</th>
+                                    <th>Origem</th>
+                                    <th>Destino</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><select class="form-control" name="register" id="register">
+                                        <option>Entrada</option>
+                                        <option>Sa&iacute;da</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="date" name="e_data" id="e_data" /></td>
+                                    <td><input type="text" name="e_value" id="e_value" /></td>
+                                    <td><input type="text" name="e_description" id="e_description" /></td>
+                                    <td><input type="text" name="e_type" id="e_type" /></td>
+                                    <td><input type="text" name="e_source" id="e_source" /></td>
+                                    <td><input type="text" name="e_sink" id="e_sink" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="container">
+                        <button type="button" class="btn btn-primary" onclick="myform.submit()">Enviar Dados</button>
+                        <button type="button" class="btn btn-primary" onclick="hide_form('new_expense')">Cancelar</button>
+                    </div>
+                    <input type="hidden" name="is_submition" value="True" />
+                </form>-->
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,385 @@
+(dp1
+S'output'
+p2
+S'The "end" tag is unmatched, please check if you have a starting "block" tag'
+p3
+sS'layer'
+p4
+S"'money_layout.html'"
+p5
+sS'code'
+p6
+S'<!--[if HTML5]><![endif]-->\r\n<!DOCTYPE html>\r\n<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->\r\n<!--[if lt IE 7]><html class="ie ie6 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or \'en\'}}"> <![endif]-->\r\n<!--[if IE 7]><html class="ie ie7 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or \'en\'}}"> <![endif]-->\r\n<!--[if IE 8]><html class="ie ie8 ie-lte9 ie-lte8 no-js" lang="{{=T.accepted_language or \'en\'}}"> <![endif]-->\r\n<!--[if IE 9]><html class="ie9 ie-lte9 no-js" lang="{{=T.accepted_language or \'en\'}}"> <![endif]-->\r\n<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or \'en\'}}"> <!--<![endif]-->\r\n<head>\r\n<title>{{=\'Money\'}}</title>\r\n  <!--[if !HTML5]>\r\n      <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and \',chrome=1\' or \'\'}}">\r\n  <![endif]-->\r\n  <!-- www.phpied.com/conditional-comments-block-downloads/ -->\r\n  <!-- Always force latest IE rendering engine\r\n       (even in intranet) & Chrome Frame\r\n       Remove this if you use the .htaccess -->\r\n\r\n  <meta charset="utf-8" />\r\n\r\n  <!-- http://dev.w3.org/html5/markup/meta.name.html -->\r\n  <meta name="application-name" content="{{=request.application}}" />\r\n\r\n  <!-- Speaking of Google, don\'t forget to set your site up:\r\n       http://google.com/webmasters -->\r\n  <meta name="google-site-verification" content="" />\r\n\r\n  <!--  Mobile Viewport Fix\r\n        j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag\r\n        device-width: Occupy full width of the screen in its current orientation\r\n        initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height\r\n        user-scalable = yes allows the user to zoom in -->\r\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\r\n\r\n  <link rel="shortcut icon" href="{{=URL(\'static\',\'images/favicon.ico\')}}" type="image/x-icon">\r\n  <link rel="apple-touch-icon" href="{{=URL(\'static\',\'images/favicon.png\')}}">\r\n\r\n    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">\r\n\r\n        <!-- jQuery library -->\r\n    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>\r\n\r\n        <!-- Latest compiled JavaScript -->\r\n    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>\r\n\r\n  <!-- All JavaScript at the bottom, except for Modernizr which enables\r\n       HTML5 elements & feature detects -->\r\n  <script src="{{=URL(\'static\',\'js/modernizr.custom.js\')}}"></script>\r\n\r\n  <!-- include stylesheets -->\r\n  {{\r\n  response.files.insert(0,URL(\'static\',\'css/web2py.css\'))\r\n  response.files.insert(1,URL(\'static\',\'css/bootstrap.min.css\'))\r\n  response.files.insert(2,URL(\'static\',\'css/bootstrap-responsive.min.css\'))\r\n  response.files.insert(3,URL(\'static\',\'css/web2py_bootstrap.css\'))\r\n  }}\r\n\r\n  {{include \'web2py_ajax.html\'}}\r\n\r\n  {{\r\n  # using sidebars need to know what sidebar you want to use\r\n  left_sidebar_enabled = globals().get(\'left_sidebar_enabled\',False)\r\n  right_sidebar_enabled = globals().get(\'right_sidebar_enabled\',False)\r\n  middle_columns = {0:\'span12\',1:\'span9\',2:\'span6\'}[\r\n    (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]\r\n  }}\r\n\r\n  <!-- uncomment here to load jquery-ui\r\n       <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />\r\n       <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>\r\n       uncomment to load jquery-ui //-->\r\n  <noscript><link href="{{=URL(\'static\', \'css/web2py_bootstrap_nojs.css\')}}" rel="stylesheet" type="text/css" /></noscript>\r\n  {{block head}}{{end}}\r\n</head>\r\n\r\n<body>\r\n    <nav class="navbar navbar-default">\r\n        <div class="container-fluid">\r\n            <div class="navbar-header"><a class="navbar-brand" href="#">{{=appname}}</a></div>\r\n            <div>\r\n                <ul class="nav navbar-nav navbar-right">\r\n                    {{if auth.user:}}\r\n                    <li><a href="{{=URL(\'user\')}}/logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>\r\n                    {{else:}}\r\n                    <li><a href="{{=URL(\'user\')}}/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>\r\n                    {{pass}}\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </nav>\r\n    <div class="container">\r\n                <div class="row">\r\n                    &nbsp;\r\n                </div>\r\n            </div>\r\n    <div class="container">\r\n        <div class="jumbotron">\r\n            <div class="row">\r\n                <div class="col-md-8"><h2>{{=auth.user.first_name}} {{=auth.user.last_name}}</h2></div>\r\n                <div class="col-md-4">\r\n                    <div class="row">\r\n                        <div class="col-md-8">Carteira</div>\r\n                        <div class="col-md-4">{{=cur_values[\'wallet\']}}</div>\r\n                    </div>\r\n                    <div class="container"><div class="row">&nbsp;</div></div>\r\n                    <div class="row">\r\n                        <div class="col-md-8">Conta Corrente</div>\r\n                        <div class="col-md-4">{{=cur_values[\'bank\']}}</div>\r\n                    </div>\r\n                    <div class="container"><div class="row">&nbsp;</div></div>\r\n                    <div class="row">\r\n                        <div class="col-md-8">Poupan&ccedil;a</div>\r\n                        <div class="col-md-4">{{=cur_values[\'savings\']}}</div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n  <div class="container">\r\n    <section id="main" class="main row">\r\n        <div class="{{=middle_columns}}">\r\n            {{block center}}\r\n            {{include}}\r\n            {{end}}\r\n        </div>\r\n    </section><!--/main-->\r\n      \r\n<nav class="navbar navbar-inverse navbar-fixed-top">\r\n    <div class="container-fluid">\r\n        <div class="navbar-header">\r\n            <a class="navbar-brand" href="#">WebSiteName</a>\r\n        </div>\r\n        <div>\r\n            <ul class="nav navbar-nav">\r\n                <li class="active"><a href="#">Home</a></li>\r\n                <li><a href="#">Page 1</a></li>\r\n                <li><a href="#">Page 2</a></li>\r\n                <li><a href="#">Page 3</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n\r\n    <!-- Footer ================================================== -->\r\n<!--    <div class="row">\r\n        <footer class="footer span12" id="footer">\r\n            <div class="footer-content">\r\n                <div class="copyright pull-left">{{=T(\'Copyright\')}} &#169; {{=request.now.year}}</div>\r\n                <div id="poweredBy" class="pull-right">\r\n                    Desenvolvido por \r\n                    <a href="http://www.renatolmorais.com.br/">RenatoLMorais</a>\r\n                </div>\r\n                {{end}}\r\n            </div>\r\n        </footer>\r\n    </div>-->\r\n\r\n  </div> <!-- /container -->\r\n\r\n  <!-- The javascript =============================================\r\n       (Placed at the end of the document so the pages load faster) -->\r\n  <script src="{{=URL(\'static\',\'js/bootstrap.min.js\')}}"></script>\r\n  <script src="{{=URL(\'static\',\'js/web2py_bootstrap.js\')}}"></script>\r\n  <!--[if lt IE 7 ]>\r\n      <script src="{{=URL(\'static\',\'js/dd_belatedpng.js\')}}"></script>\r\n      <script> DD_belatedPNG.fix(\'img, .png_bg\'); //fix any <img> or .png_bg background-images </script>\r\n      <![endif]-->\r\n\r\n  {{if response.google_analytics_id:}}\r\n  <!-- Google Analytics -->\r\n  <script>\r\n    (function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){\r\n(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\r\nm=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\r\n})(window,document,\'script\',\'//www.google-analytics.com/analytics.js\',\'ga\');\r\n    ga(\'create\', \'{{=response.google_analytics_id}}\', \'auto\');\r\n    ga(\'send\', \'pageview\');\r\n  </script>\r\n  <!-- End Google Analytics -->\r\n  {{pass}}\r\n  <script src="{{=URL(\'static\',\'js/share.js\',vars=dict(static=URL(\'static\',\'images\')))}}"></script>\r\n    <script>\r\n            function show_form(formid) {\r\n                var myform = document.getElementById(formid);\r\n                myform.style.display = "inline";\r\n                document.getElementById(\'e_data\').focus();\r\n                myform.scrollIntoView();\r\n            }\r\n            function hide_form(formid) {\r\n                document.getElementById("quant").style.display = "none";\r\n                document.getElementById(formid).style.display = "none";\r\n            }\r\n            function submit_form(cur_month,formid) {\r\n                var obj = document.getElementById(\'cur_month\');\r\n                obj.value = cur_month;\r\n                document.getElementById(formid).submit();\r\n            }\r\n            function activate(listobj) {\r\n                var objs = document.getElementsByTagName("li");\r\n                var i;\r\n                for(i = 0; i < objs.length; i++) {\r\n                    objs[i].className = "inactive";\r\n                }\r\n                listobj.className = "active";\r\n            }\r\n            function verify_option(selobj) {\r\n                var string = "Cart\xc3\xa3o de Cr\xc3\xa9dito";\r\n                if (selobj.value == string) {\r\n                    var quant = document.getElementById("quant");\r\n                    quant.style.display = "inline";\r\n                }\r\n            }\r\n        </script>\r\n</body>\r\n</html>\r\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__module__'
+p12
+S"'gluon.rocket'"
+p13
+sS'__getslice__'
+p14
+S"<method-wrapper '__getslice__' of SocketTimeout object>"
+p15
+sS'__str__'
+p16
+S"<method-wrapper '__str__' of SocketTimeout object>"
+p17
+sS'__reduce__'
+p18
+S'<built-in method __reduce__ of SocketTimeout object>'
+p19
+sS'__dict__'
+p20
+S'{}'
+p21
+sS'__sizeof__'
+p22
+S'<built-in method __sizeof__ of SocketTimeout object>'
+p23
+sS'__weakref__'
+p24
+S'None'
+p25
+sS'__init__'
+p26
+S"<method-wrapper '__init__' of SocketTimeout object>"
+p27
+sS'__setattr__'
+p28
+S"<method-wrapper '__setattr__' of SocketTimeout object>"
+p29
+sS'__reduce_ex__'
+p30
+S'<built-in method __reduce_ex__ of SocketTimeout object>'
+p31
+sS'__new__'
+p32
+S'<built-in method __new__ of type object>'
+p33
+sS'__format__'
+p34
+S'<built-in method __format__ of SocketTimeout object>'
+p35
+sS'__class__'
+p36
+S"<class 'gluon.rocket.SocketTimeout'>"
+p37
+sS'__doc__'
+p38
+S"'Exception for when a socket times out between requests.'"
+p39
+sS'__getitem__'
+p40
+S"<method-wrapper '__getitem__' of SocketTimeout object>"
+p41
+sS'__setstate__'
+p42
+S'<built-in method __setstate__ of SocketTimeout object>'
+p43
+sS'__getattribute__'
+p44
+S"<method-wrapper '__getattribute__' of SocketTimeout object>"
+p45
+sS'args'
+p46
+S"('Socket timed out before request.',)"
+p47
+sS'__subclasshook__'
+p48
+S'<built-in method __subclasshook__ of type object>'
+p49
+sS'__unicode__'
+p50
+S'<built-in method __unicode__ of SocketTimeout object>'
+p51
+sS'__delattr__'
+p52
+S"<method-wrapper '__delattr__' of SocketTimeout object>"
+p53
+sS'__repr__'
+p54
+S"<method-wrapper '__repr__' of SocketTimeout object>"
+p55
+sS'__hash__'
+p56
+S"<method-wrapper '__hash__' of SocketTimeout object>"
+p57
+ssS'evalue'
+p58
+S'Socket timed out before request.'
+p59
+sS'frames'
+p60
+(lp61
+(dp62
+S'file'
+p63
+S'C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py'
+p64
+sS'dump'
+p65
+(dp66
+S'self'
+p67
+S'<WSGIWorker(Thread-10, started daemon 3564)>'
+p68
+sS'conn'
+p69
+S'<gluon.rocket.Connection object>'
+p70
+sS'self.run_app'
+p71
+S'<bound method WSGIWorker.run_app of <WSGIWorker(Thread-10, started daemon 3564)>>'
+p72
+ssS'lnum'
+p73
+I1337
+sS'lines'
+p74
+(dp75
+I1332
+S'            # Enter connection serve loop'
+p76
+sI1333
+S'            while True:'
+p77
+sI1334
+S'                if __debug__:'
+p78
+sI1335
+S"                    self.err_log.debug('Serving a request')"
+p79
+sI1336
+S'                try:'
+p80
+sI1337
+S'                    self.run_app(conn)'
+p81
+sI1338
+S'                except:'
+p82
+sI1339
+S'                    exc = sys.exc_info()'
+p83
+sI1340
+S'                    handled = self._handleError(*exc)'
+p84
+sI1341
+S'                    if handled:'
+p85
+ssS'call'
+p86
+S'(self=<WSGIWorker(Thread-10, started daemon 3564)>)'
+p87
+sS'func'
+p88
+S'run'
+p89
+sa(dp90
+g63
+S'C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py'
+p91
+sg65
+(dp92
+S'self'
+p93
+S'<WSGIWorker(Thread-10, started daemon 3564)>'
+p94
+sS'self.environ'
+p95
+S"{'HTTP_ACCEPT': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'HTTP_ACCEPT_ENCODING': 'gzip, deflate', 'HTTP_ACCEPT_LANGUAGE': 'pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3', 'HTTP_CACHE_CONTROL': 'max-age=0', 'HTTP_CONNECTION': 'keep-alive', 'HTTP_COOKIE': 'session_id_money=127.0.0.1-a0e0b5f1-47a0-4988-aa...in=127.0.0.1-32a64c98-d6f2-4186-b87e-c607fb5b7166', 'HTTP_DNT': '1', 'HTTP_HOST': 'localhost:8000', 'HTTP_REFERER': 'http://localhost:8000/money/default/planning', 'HTTP_USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; rv:36.0) Gecko/20100101 Firefox/36.0', ...}"
+p96
+sS'sock_file'
+p97
+S'<socket._fileobject object>'
+p98
+sS'environ'
+p99
+S'undefined'
+p100
+sS'self.build_environ'
+p101
+S'<bound method WSGIWorker.build_environ of <WSGIWorker(Thread-10, started daemon 3564)>>'
+p102
+sS'conn'
+p103
+S'<gluon.rocket.Connection object>'
+p104
+ssg73
+I1830
+sg74
+(dp105
+I1825
+S'        else:'
+p106
+sI1826
+S'            sock_file = conn.makefile(BUF_SIZE)'
+p107
+sI1827
+S''
+sI1828
+S'        try:'
+p108
+sI1829
+S'            # Read the headers and build our WSGI environment'
+p109
+sI1830
+S'            self.environ = environ = self.build_environ(sock_file, conn)'
+p110
+sI1831
+S''
+sI1832
+S'            # Handle 100 Continue'
+p111
+sI1833
+S"            if environ.get('HTTP_EXPECT', '') == '100-continue':"
+p112
+sI1834
+S"                res = environ['SERVER_PROTOCOL'] + ' 100 Continue\\r\\n\\r\\n'"
+p113
+ssg86
+S'(self=<WSGIWorker(Thread-10, started daemon 3564)>, conn=<gluon.rocket.Connection object>)'
+p114
+sg88
+S'run_app'
+p115
+sa(dp116
+g63
+S'C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py'
+p117
+sg65
+(dp118
+S'sock_file'
+p119
+S'<socket._fileobject object>'
+p120
+sS'self.read_request_line'
+p121
+S'<bound method WSGIWorker.read_request_line of <WSGIWorker(Thread-10, started daemon 3564)>>'
+p122
+sS'self'
+p123
+S'<WSGIWorker(Thread-10, started daemon 3564)>'
+p124
+sS'request'
+p125
+g100
+ssg73
+I1650
+sg74
+(dp126
+I1645
+S'                                      "wsgiorg.futures": executor.futures})'
+p127
+sI1646
+S''
+sI1647
+S'    def build_environ(self, sock_file, conn):'
+p128
+sI1648
+S'        """ Build the execution environment. """'
+p129
+sI1649
+S'        # Grab the request line'
+p130
+sI1650
+S'        request = self.read_request_line(sock_file)'
+p131
+sI1651
+S''
+sI1652
+S'        # Copy the Base Environment'
+p132
+sI1653
+S'        environ = self.base_environ.copy()'
+p133
+sI1654
+S''
+ssg86
+S'(self=<WSGIWorker(Thread-10, started daemon 3564)>, sock_file=<socket._fileobject object>, conn=<gluon.rocket.Connection object>)'
+p134
+sg88
+S'build_environ'
+p135
+sa(dp136
+g63
+S'C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py'
+p137
+sg65
+(dp138
+S'global SocketTimeout'
+p139
+S"<class 'gluon.rocket.SocketTimeout'>"
+p140
+ssg73
+I1401
+sg74
+(dp141
+I1396
+S''
+sI1397
+S'                d = sock_file.readline()'
+p142
+sI1398
+S'                if PY3K:'
+p143
+sI1399
+S"                    d = d.decode('ISO-8859-1')"
+p144
+sI1400
+S'        except socket.timeout:'
+p145
+sI1401
+S"            raise SocketTimeout('Socket timed out before request.')"
+p146
+sI1402
+S'        except TypeError:'
+p147
+sI1403
+S'            raise SocketClosed('
+p148
+sI1404
+S"                'SSL bug caused closure of socket.  See '"
+p149
+sI1405
+S'                \'"https://groups.google.com/d/topic/web2py/P_Gw0JxWzCs".\')'
+p150
+ssg86
+S'(self=<WSGIWorker(Thread-10, started daemon 3564)>, sock_file=<socket._fileobject object>)'
+p151
+sg88
+S'read_request_line'
+p152
+sasS'pyver'
+p153
+S'Python 2.7.9: C:\\Users\\suporte_renato\\Downloads\\web2py\\web2py.exe (prefix: C:\\Python27)'
+p154
+sS'etype'
+p155
+S"<class 'gluon.rocket.SocketTimeout'>"
+p156
+sS'date'
+p157
+S'Tue Mar 24 11:08:34 2015'
+p158
+sS'locals'
+p159
+(dp160
+S'sock_file'
+p161
+S'<socket._fileobject object>'
+p162
+sS'self'
+p163
+S'<WSGIWorker(Thread-10, started daemon 3564)>'
+p164
+sssS'traceback'
+p165
+S'Traceback (most recent call last):\n  File "C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py", line 1337, in run\n    self.run_app(conn)\n  File "C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py", line 1830, in run_app\n    self.environ = environ = self.build_environ(sock_file, conn)\n  File "C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py", line 1650, in build_environ\n    request = self.read_request_line(sock_file)\n  File "C:\\Users\\suporte_renato\\Downloads\\web2py\\gluon\\rocket.py", line 1401, in read_request_line\n    raise SocketTimeout(\'Socket timed out before request.\')\nSocketTimeout: Socket timed out before request.\n'
+p166
+s.

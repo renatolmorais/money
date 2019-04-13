@@ -1,0 +1,91 @@
+{{extend 'money_layout.html'}}
+        <div class="container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-pills">
+                            <li><a href="{{=URL('expenses')}}">Despesas gerais</a></li>
+                            <li><a href="{{=URL('inout')}}">Entradas e Sa&iacute;das</a></li>
+                            <li><a href="{{=URL('planning')}}">Planejamento do m&ecirc;s</a></li>
+                            <li class="active"><a href="#">Faturas do Car&atilde;o de Cr&eacute;dito</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    &nbsp;
+                </div>
+            </div>
+            <form method="get" action="{{=URL('credit')}}" id="myform2">
+                <!--<input type="hidden" name="change_year" id="change_year" value="True"/>-->
+                <input type="hidden" name="cur_month" id="cur_month" value="{{=cur_month}}" />
+                <select class="form-control" name="cur_year" id="cur_year" onchange="submit_form({{=cur_month}},'myform2')">
+                    {{for year in year_list:}}
+                    <option {{='selected' if year == cur_year else ''}}>{{=year}}</option>
+                    {{pass}}
+                </select>
+                <div class="container">
+                    <div class="row">
+                    &nbsp;
+                    </div>
+                </div>
+                <ul class="nav nav-pills">
+                    {{for (month,m) in [('Janeiro',1),('Fevereiro',2),('Março',3),('Abril',4),('Maio',5),('Junho',6),('Julho',7),('Agosto',8),('Setembro',9),('Outubro',10),('Novembro',11),('Dezembro',12)]:}}
+                    {{className = 'active' if m == cur_month else 'inactive'}}
+                    <li class="{{=className}}" id="li-{{=month}}" onclick="submit_form({{=m}},'myform2')"><a href="#">{{=month}}</a></li>
+                    {{pass}}
+                </ul>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">Total da fatura: {{=total_credit}}</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="1">Data</th>
+                            <th>Descri&ccedil;&atilde;o</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Parcela</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{if success:}}
+                        {{for expense in expenses:}}
+                        <tr>
+                            <td style="display:none">{{=expense.id}}</td>
+                            <td>{{=expense.e_data}}</td>
+                            <td>{{=expense.e_description}}</td>
+                            <td>{{=expense.e_type}}</td>
+                            <td>{{=expense.e_value}}</td>
+                            <td><div style="display:{{='inline' if expense.e_quant > 0 else 'none'}}">{{=parc[expense.id]}}</div></td>
+                        </tr>
+                        {{pass}}
+                        {{else:}}
+                        <tr><td colspan="5">{{=message}}}</td></tr>
+                        {{pass}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>

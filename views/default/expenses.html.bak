@@ -1,0 +1,152 @@
+{{extend 'money_layout.html'}}
+        <div class="container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#">Despesas gerais</a></li>
+                            <li><a href="{{=URL('inout')}}">Entradas e Sa&iacute;das</a></li>
+                            <li><a href="{{=URL('planning')}}">Planejamento do m&ecirc;s</a></li>
+                            <li><a href="{{=URL('credit')}}">Faturas do Car&atilde;o de Cr&eacute;dito</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    &nbsp;
+                </div>
+            </div>
+            <form method="get" action="{{=URL('expenses')}}" id="myform2">
+                <!--<input type="hidden" name="change_year" id="change_year" value="True"/>-->
+                <input type="hidden" name="cur_month" id="cur_month" value="{{=cur_month}}" />
+                <select class="form-control" name="cur_year" id="cur_year" onchange="submit_form({{=cur_month}},'myform2')">
+                    {{for year in year_list:}}
+                    <option {{='selected' if year == cur_year else ''}}>{{=year}}</option>
+                    {{pass}}
+                </select>
+                <div class="container">
+                    <div class="row">
+                    &nbsp;
+                    </div>
+                </div>
+                <ul class="nav nav-pills">
+                    {{for (month,m) in [('Janeiro',1),('Fevereiro',2),('Março',3),('Abril',4),('Maio',5),('Junho',6),('Julho',7),('Agosto',8),('Setembro',9),('Outubro',10),('Novembro',11),('Dezembro',12)]:}}
+                    {{className = 'active' if m == cur_month else 'inactive'}}
+                    <li class="{{=className}}" id="li-{{=month}}" onclick="submit_form({{=m}},'myform2')"><a href="#">{{=month}}</a></li>
+                    {{pass}}
+                </ul>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">Cart&atilde;o de Cr&eacute;dito: {{=somas.get('credit',0.0)}}</div>
+                <div class="col-md-4">Cart&atilde;o de D&eacute;bito: {{=somas.get('debit',0.0)}}</div>
+                <div class="col-md-4">Dinheiro: {{=somas.get('money',0.0)}}</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="1">Data</th>
+                            <th>Descri&ccedil;&atilde;o</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Forma de Pagamento</th>
+                            <th>N. Parcelas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{if success:}}
+                        {{for expense in expenses:}}
+                        <tr>
+                            <td style="display:none">{{=expense.id}}</td>
+                            <td>{{=expense.e_data}}</td>
+                            <td>{{=expense.e_description}}</td>
+                            <td>{{=expense.e_type}}</td>
+                            <td>{{=expense.e_value}}</td>
+                            <td>{{=expense.e_payment}}</td>
+                            <td><div style="display:{{='inline' if expense.e_payment == 'Cartão de Crédito' else 'none'}}">{{=expense.e_quant}}</div></td>
+                        </tr>
+                        {{pass}}
+                        {{else:}}
+                        <tr><td colspan="5">{{=message}}}</td></tr>
+                        {{pass}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <button type="button" class="btn btn-primary" onclick="show_form('new_expense')">Nova despesa...</button>
+            <div class="container">
+                <div class="row">
+                &nbsp;
+                </div>
+            </div>
+            <div class="container" style="display:none" id="new_expense">
+                <form class="form-inline" role="form" method="post" action="{{=URL('expenses')}}">
+                    <div class="form-group">
+                        <label class="sr-only" for="e_data">Data</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="date" class="form-control" name="e_data" id="e_data" placeholder="Data"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_description">Descri&ccedil;&atilde;o</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="text" class="form-control" name="e_description" id="e_description" placeholder="Descri&ccedil;&atilde;o"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_type">Tipo</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="text" class="form-control" name="e_type" id="e_type" placeholder="Tipo"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e-value">Valor</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="text" class="form-control" name="e_value" id="e_value" placeholder="Valor"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="e_register">Forma de Pagamento</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <select class="form-control" name="e_payment" id="e_payment" onchange="verify_option(this)">
+                            <option></option>
+                            <option>Cart&atilde;o de Cr&eacute;dito</option>
+                            <option>Cart&atilde;o de D&eacute;bito</option>
+                            <option>Dinheiro</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="quant" style="display:none">
+                        <label class="sr-only" for="e_quant">N. Parcelas</label>
+                        <!--<input type="email" class="form-control" id="email" placeholder="Registro">-->
+                        <input type="text" class="form-control" name="e_quant" id="e_quant" placeholder="N. Parcelas"/>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                        &nbsp;
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Enviar Dados</button>
+                    <button type="button" class="btn btn-primary" onclick="hide_form('new_expense')">Cancelar</button>
+                    <input type="hidden" name="is_submition" value="True" />
+                </form>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+    </body>
+</html>
