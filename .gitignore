@@ -1,0 +1,9 @@
+errors/**
+sessions/**
+*.pyc
+*.bak
+errors/*.html
+static/*.html
+*.log
+*.pdf
+cron/**
